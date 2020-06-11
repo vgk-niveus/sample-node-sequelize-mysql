@@ -1,4 +1,5 @@
 const db = require("../models");
+const selectQueryTutorialByID = require('../customSql/customSQL');
 const Tutorial = db.tutorials;
 const Op = db.Sequelize.Op;
 
@@ -63,6 +64,27 @@ exports.findOne = (req, res) => {
         });
       });
   };
+
+
+// Find a single Tutorial with an id
+exports.findOneRaw = (req, res) => {
+  
+  const id = req.params.id;
+  queryRes = selectQueryTutorialByID.selectQueryTutorialByID(id);
+
+  console.log(queryRes);
+
+  Tutorial.sequelize.query(queryRes, { type: Tutorial.sequelize.QueryTypes.SELECT })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send({
+        message: "Error retrieving Tutorial with id=" + id
+      });
+    });
+};
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {

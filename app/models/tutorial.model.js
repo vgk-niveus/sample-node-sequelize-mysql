@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, Sequelize) => {
-    const Tutorial = sequelize.define("tutorial", {
+    const Tutorial = sequelize.define("boom_shaka_laka", {
       title: {
         type: Sequelize.STRING,
         field: 'title_custom'
